@@ -1,0 +1,79 @@
+DB2 Universal Database Version 11.1, 5622-044 (c) Copyright IBM Corp. 1991, 2015
+Licensed Material - Program Property of IBM
+IBM DB2 Universal Database SQL and XQUERY Explain Tool
+
+******************** DYNAMIC ***************************************
+
+==================== STATEMENT ==========================================
+
+	Isolation Level          = Cursor Stability
+	Blocking                 = Block All Cursors
+	Query Optimization Class = 5
+
+	Partition Parallel       = No
+	Intra-Partition Parallel = No
+
+	SQL Path                 = "SYSIBM", "SYSFUN", "SYSPROC", "SYSIBMADM", 
+                                   "PELLOST"
+
+
+Statement:
+  
+  select sum(price)
+  from 
+     (select language, price 
+     from stl.book 
+     order by language)
+  group by language
+
+
+Section Code Page = 1208
+
+Estimated Cost = 667.222534
+Estimated Cardinality = 13.000000
+
+Access Table Name = STL.BOOK  ID = 2,5
+|  #Columns = 2
+|  Skip Inserted Rows
+|  Avoid Locking Committed Data
+|  Currently Committed for Cursor Stability
+|  May participate in Scan Sharing structures
+|  Scan may start anywhere and wrap, for completion
+|  Fast scan, for purposes of scan sharing management
+|  Scan can be throttled in scan sharing management
+|  Relation Scan
+|  |  Prefetch: Eligible
+|  Lock Intents
+|  |  Table: Intent Share
+|  |  Row  : Next Key Share
+|  Sargable Predicate(s)
+|  |  Insert Into Sorted Temp Table  ID = t1
+|  |  |  #Columns = 2
+|  |  |  #Sort Key Columns = 1
+|  |  |  |  Key 1: LANGUAGE (Ascending)
+|  |  |  Sortheap Allocation Parameters:
+|  |  |  |  #Rows     = 50000.000000
+|  |  |  |  Row Width = 20
+|  |  |  Piped
+Sorted Temp Table Completion  ID = t1
+Access Temp Table  ID = t1
+|  #Columns = 2
+|  Relation Scan
+|  |  Prefetch: Eligible
+|  Sargable Predicate(s)
+|  |  Predicate Aggregation
+|  |  |  Group By
+|  |  |  Column Function(s)
+|  |  Return Data to Application
+|  |  |  #Columns = 1
+Aggregation Completion
+|  Group By
+|  Column Function(s)
+|  Residual Predicate(s)
+|  |  Return Data to Application
+|  |  |  #Columns = 1
+Return Data Completion
+
+End of section
+
+

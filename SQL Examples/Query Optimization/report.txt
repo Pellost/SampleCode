@@ -1,0 +1,22 @@
+Andrew Lau 212905253 pellost
+Mark Zhang 212746566 mark5001
+
+One
+
+Both queries search for the cust# in the stl.customer table. For oneA, the estimated cost is nearly the same as oneB's query. However, oneB has a narrower and more specific search query than oneA. Both queries access teh stl.customer table and perform a index scan. Since both search have a range of 1 to 100, the index scan has a start and stop key. They are sorted on a temporary file in order have a sorted result. 
+
+Two
+
+For these pair of queries we can see how sorting on the fly affects aggregate functions. The two variation of the query involves first sorting the tuples before passing it to the aggregation function and second just applying the aggregate function on the unsorted relation. In twoA, a explicit sort is used to sort the inner query before passing to the aggregate sum function. Through the access path we see how the inner query was built as a sorted temp table called t1. This table is then accessed and passed on to the aggregate function to complete the query. This access path has a estimated cost of 667.2. The other variation lets the aggregate function handle the sorting. The access path shows that sorting was done was preprocessing before the aggregation function was computed. It seem that a hash function was applied to the relation to find all tuples of each language and add them to a temp table t1. This table is then passed to the aggregate function to compute the final result. It seems that allowing the aggregate function to handle its own sorting is slightly more efficient than explicitly sorting the relation yourself as the cost of explicitly sorting had a higher cost of 667.2 as compared to 654.2 of sorting on the fly.
+
+Three
+
+Both queries searches the customer from the purchase database. The difference between these two queries is that one uses an index nested loop join and the other one does not. In terms of estimated cost, threeB is slightly faster than threeA. ThreeA stars working on the inner SELECT query. The inner SELECT has a WHERE clause using cust# which is part of an index. The start and stop key are inclusive values of the cust# from 1 to 100. The inner query has an ORDER BY clause. ThreeA has a nested loop join which means that it goes through the result and then for each cust#, looks up the corresponding row in the stl.purchase table. ThreeB does not do the nested loop join and has the same thing as the query from ThreeA. It compares both cust# from stl.purchase and stl.customer and make sure the cust# is between 1 and 100 and is ordered.
+
+Four
+
+The queries are looking for the cust# from the stl.purchase table and book# from the stl.book table. For fourA, the query is faster than fourB by a huge amount. FourA starts by accessing the stl.purchase table and performs an index scan to find the cust#. The query started from the inner select query and it wil start working its way out. After the results are found, a nested loop join happens with the stl.purchase.cust# table through index scan. Once done, a right outer hash join is done with the stl.book table before returning the values. For fourB, it accesses the stl.book table and then does a left outer hash join with stl.purchase. Finally, a nested loop join which is the inner select  query is accessing the stl.customer table with and index scan on cust# and have the nested loop start at key 1 to 100 inclusively before results are returned.
+
+Five
+
+This two query explore how different nested queries are handled by the sql optimizer. Both these queries achieves the same result however one uses a nested query. By comparing the estimated cost of each query, we can see that the nested query with a cost of 1088 is far less opimized than the query that did not use one at the cost of 24. This large cost can be seen in the access path the dbms took. The optimiser first computes the inner query and the does a nested loop join with the customer relation, given the size of these relations we can see where a bulk of the cost is coming from. The query without a nest query on the other hand has a much smaller estimated cost. This is due to the fact that the query only requires one index scan to computer the result and does not require any join functions.

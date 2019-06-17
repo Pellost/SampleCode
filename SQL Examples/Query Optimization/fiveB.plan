@@ -1,0 +1,59 @@
+DB2 Universal Database Version 11.1, 5622-044 (c) Copyright IBM Corp. 1991, 2015
+Licensed Material - Program Property of IBM
+IBM DB2 Universal Database SQL and XQUERY Explain Tool
+
+******************** DYNAMIC ***************************************
+
+==================== STATEMENT ==========================================
+
+	Isolation Level          = Cursor Stability
+	Blocking                 = Block All Cursors
+	Query Optimization Class = 5
+
+	Partition Parallel       = No
+	Intra-Partition Parallel = No
+
+	SQL Path                 = "SYSIBM", "SYSFUN", "SYSPROC", "SYSIBMADM", 
+                                   "PELLOST"
+
+
+Statement:
+  
+  select c.cust# 
+  from stl.customer c, stl.purchase p 
+  where c.cust# =p.cust# and p.book# =46
+
+
+Section Code Page = 1208
+
+Estimated Cost = 24.300995
+Estimated Cardinality = 210.174118
+
+Access Table Name = STL.PURCHASE  ID = 2,6
+|  Index Scan:  Name = STL.PURCHASE_BOOK#_INDEX  ID = 2
+|  |  Regular Index (Not Clustered)
+|  |  Index Columns:
+|  |  |  1: BOOK# (Ascending)
+|  #Columns = 1
+|  Skip Inserted Rows
+|  Avoid Locking Committed Data
+|  Currently Committed for Cursor Stability
+|  Evaluate Predicates Before Locking for Key
+|  #Key Columns = 1
+|  |  Start Key: Inclusive Value
+|  |  |  1: 46 
+|  |  Stop Key: Inclusive Value
+|  |  |  1: 46 
+|  Data Prefetch: Sequential(1), Readahead
+|  Index Prefetch: Sequential(1), Readahead
+|  Lock Intents
+|  |  Table: Intent Share
+|  |  Row  : Next Key Share
+|  Sargable Predicate(s)
+|  |  Return Data to Application
+|  |  |  #Columns = 1
+Return Data Completion
+
+End of section
+
+

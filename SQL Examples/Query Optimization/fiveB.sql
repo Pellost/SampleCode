@@ -1,0 +1,1 @@
+select c.cust# from stl.customer c, stl.purchase p where c.cust# = p.cust# and p.book# = 46;

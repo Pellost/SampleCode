@@ -1,0 +1,84 @@
+DB2 Universal Database Version 11.1, 5622-044 (c) Copyright IBM Corp. 1991, 2015
+Licensed Material - Program Property of IBM
+IBM DB2 Universal Database SQL and XQUERY Explain Tool
+
+******************** DYNAMIC ***************************************
+
+==================== STATEMENT ==========================================
+
+	Isolation Level          = Cursor Stability
+	Blocking                 = Block All Cursors
+	Query Optimization Class = 5
+
+	Partition Parallel       = No
+	Intra-Partition Parallel = No
+
+	SQL Path                 = "SYSIBM", "SYSFUN", "SYSPROC", "SYSIBMADM", 
+                                   "MARK5001"
+
+
+Statement:
+  
+  select cust# 
+  from stl.purchase 
+  where cust# in 
+     (select cust# 
+     from stl.customer 
+     where cust# between 1 and 100 
+     order by cust#)
+
+
+Section Code Page = 1208
+
+Estimated Cost = 749.370361
+Estimated Cardinality = 10095.929688
+
+Access Table Name = STL.CUSTOMER  ID = 2,4
+|  Index Scan:  Name = STL.CUSTOMER_PK  ID = 1
+|  |  Regular Index (Not Clustered)
+|  |  Index Columns:
+|  |  |  1: CUST# (Ascending)
+|  #Columns = 1
+|  Skip Inserted Rows
+|  Avoid Locking Committed Data
+|  Currently Committed for Cursor Stability
+|  #Key Columns = 1
+|  |  Start Key: Inclusive Value
+|  |  |  1: 1 
+|  |  Stop Key: Inclusive Value
+|  |  |  1: 100 
+|  Index-Only Access
+|  Index Prefetch: Sequential(1), Readahead
+|  Lock Intents
+|  |  Table: Intent Share
+|  |  Row  : Next Key Share
+Nested Loop Join
+|  Access Table Name = STL.PURCHASE  ID = 2,6
+|  |  Index Scan:  Name = STL.PURCHASE_PK  ID = 1
+|  |  |  Regular Index (Not Clustered)
+|  |  |  Index Columns:
+|  |  |  |  1: CUST# (Ascending)
+|  |  |  |  2: BOOK# (Ascending)
+|  |  |  |  3: WHEN (Ascending)
+|  |  #Columns = 1
+|  |  Skip Inserted Rows
+|  |  Avoid Locking Committed Data
+|  |  Currently Committed for Cursor Stability
+|  |  #Key Columns = 1
+|  |  |  Start Key: Inclusive Value
+|  |  |  |  1: ? 
+|  |  |  Stop Key: Inclusive Value
+|  |  |  |  1: ? 
+|  |  Index-Only Access
+|  |  Index Prefetch: Sequential(1), Readahead
+|  |  Lock Intents
+|  |  |  Table: Intent Share
+|  |  |  Row  : Next Key Share
+|  |  Sargable Index Predicate(s)
+|  |  |  Return Data to Application
+|  |  |  |  #Columns = 1
+Return Data Completion
+
+End of section
+
+

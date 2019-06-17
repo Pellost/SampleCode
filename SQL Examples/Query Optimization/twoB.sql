@@ -1,0 +1,1 @@
+select sum(price) from stl.book group by language;

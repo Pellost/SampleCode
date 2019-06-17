@@ -1,0 +1,82 @@
+DB2 Universal Database Version 11.1, 5622-044 (c) Copyright IBM Corp. 1991, 2015
+Licensed Material - Program Property of IBM
+IBM DB2 Universal Database SQL and XQUERY Explain Tool
+
+******************** DYNAMIC ***************************************
+
+==================== STATEMENT ==========================================
+
+	Isolation Level          = Cursor Stability
+	Blocking                 = Block All Cursors
+	Query Optimization Class = 5
+
+	Partition Parallel       = No
+	Intra-Partition Parallel = No
+
+	SQL Path                 = "SYSIBM", "SYSFUN", "SYSPROC", "SYSIBMADM", 
+                                   "MARK5001"
+
+
+Statement:
+  
+  select cust# as customer 
+  from stl.customer 
+  where cust# between 1 and 100 and country ='Canada' 
+
+
+Section Code Page = 1208
+
+Estimated Cost = 28.444168
+Estimated Cardinality = 87.096115
+
+Access Table Name = STL.CUSTOMER  ID = 2,4
+|  Index Scan:  Name = STL.CUSTOMER_PK  ID = 1
+|  |  Regular Index (Not Clustered)
+|  |  Index Columns:
+|  |  |  1: CUST# (Ascending)
+|  #Columns = 0
+|  Skip Inserted Rows
+|  Avoid Locking Committed Data
+|  Currently Committed for Cursor Stability
+|  #Key Columns = 1
+|  |  Start Key: Inclusive Value
+|  |  |  1: 1 
+|  |  Stop Key: Inclusive Value
+|  |  |  1: 100 
+|  Index-Only Access
+|  Index Prefetch: Sequential(1), Readahead
+|  Isolation Level: Uncommitted Read
+|  Lock Intents
+|  |  Table: Intent None
+|  |  Row  : None
+|  Sargable Index Predicate(s)
+|  |  Insert Into Integer Sorted Temp Table  ID = t1
+|  |  |  #Columns = 1
+|  |  |  #Sort Key Columns = 1
+|  |  |  |  Key 1: (Ascending)
+|  |  |  Sortheap Allocation Parameters:
+|  |  |  |  #Rows     = 101.000000
+|  |  |  |  Row Width = 20
+|  |  |  Duplicate Elimination
+Integer Sorted Temp Table Completion  ID = t1
+List Prefetch Preparation
+|  Access Table Name = STL.CUSTOMER  ID = 2,4
+|  |  #Columns = 1
+|  |  Skip Inserted Rows
+|  |  Avoid Locking Committed Data
+|  |  Currently Committed for Cursor Stability
+|  |  RID List Fetch Scan
+|  |  Fetch Using Prefetched List
+|  |  |  Prefetch: 1 Pages
+|  |  Lock Intents
+|  |  |  Table: Intent Share
+|  |  |  Row  : Next Key Share
+|  |  Sargable Predicate(s)
+|  |  |  #Predicates = 3
+|  |  |  Return Data to Application
+|  |  |  |  #Columns = 1
+Return Data Completion
+
+End of section
+
+
