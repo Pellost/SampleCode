@@ -1,4 +1,4 @@
 # SampleCode
-Repository that represents my programming style.
+Repository containing the programs and projects that I have worked on. 
 
-Projects are seperated by programming languages.
+Projects and works are seperated by programming languages.
